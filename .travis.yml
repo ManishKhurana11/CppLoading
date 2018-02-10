@@ -1,0 +1,25 @@
+language: cpp
+dist: trusty
+os: linux
+
+env:
+  global:
+  - COMPILER=g++
+
+addons:
+  apt:
+    sources: &apt_sources
+      - ubuntu-toolchain-r-test
+
+matrix:
+  fast_finish: true
+  include:
+    - env: COMPILER=g++-5
+      compiler: gcc
+      addons: &gcc5
+        apt:
+          packages: ["g++-5"]
+          sources: *apt_sources
+
+script:
+  - g++-5 -std=c++14 Loading.cpp -o Loading.out && ./Loading.out
